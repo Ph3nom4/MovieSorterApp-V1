@@ -13,14 +13,21 @@ v2
 -MovieSorterApp API based Movie Sorter for your local downloaded Movies 
 
 -scans local disks for movies 
+
 -finds posters and metadata for movies through TMDB API
+
 -plays directly on vlc (other media player coming soon)
+
 -download metadata, posters on cache (still works offline)
+
 -support fullscreen mode
+
 -no scrollbars !
+
 -fully built on Winforms .Net10
 
 - More features coming soon?
+
 note: recommended donwload vlc first
 
 
