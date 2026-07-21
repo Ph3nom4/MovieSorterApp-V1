@@ -2,7 +2,7 @@ using System.Net.Http; //Api
 using System.Text.Json; // Api
 using System.Diagnostics;
 using System.Reflection;
-using static System.Net.WebRequestMethods;
+
 
 namespace MovieSorterApp
 {
@@ -15,6 +15,9 @@ namespace MovieSorterApp
         }
 
         private const string ApiKey = "239e1c8a63f4d3c8e1b7b2bcf3fe77bc";
+
+
+
 
 
         private HashSet<string> scannedMovies = new HashSet<string>();
@@ -31,20 +34,41 @@ namespace MovieSorterApp
             return json;
         }
 
+        public class MovieData // metadata
+        {
+            public string Title { get; set; }
+
+            public string Poster { get; set; }
+
+            public string Overview { get; set; }
+
+            public string ReleaseDate { get; set; }
+
+            public double Rating { get; set; }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
 
+            flowLayoutPanel2.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+
+            flowLayoutPanel1.Anchor = AnchorStyles.Top |
+                                      AnchorStyles.Bottom |
+                                      AnchorStyles.Left |
+                                      AnchorStyles.Right;
+
+
         }
 
-        private void CreateMovieCard(string title, string filePath, string posterUrl, FlowLayoutPanel panel)
+        private void CreateMovieCard(string title, string filePath, string posterfile, FlowLayoutPanel panel)
         {
             Panel card = new Panel();
 
             card.Width = 160;
             card.Height = 250;
             card.BorderStyle = BorderStyle.FixedSingle;
+            card.Margin = new Padding(10);
 
-           
 
             PictureBox poster = new PictureBox();
 
@@ -58,9 +82,9 @@ namespace MovieSorterApp
 
             poster.SizeMode = PictureBoxSizeMode.Zoom;
 
-            if (!string.IsNullOrEmpty(posterUrl))
+            if (!string.IsNullOrEmpty(posterfile))
             {
-                poster.LoadAsync(posterUrl);
+                poster.LoadAsync(posterfile);
             }
 
 
@@ -74,12 +98,14 @@ namespace MovieSorterApp
             lbltitle.Top = 195;
             lbltitle.Left = 10;
 
+            lbltitle.Height = 40;
             lbltitle.Width = 140;
+
 
             card.Controls.Add(poster);
             card.Controls.Add(lbltitle);
 
-           
+
 
             panel.Controls.Add(card);
 
@@ -87,7 +113,7 @@ namespace MovieSorterApp
             poster.Tag = filePath;
             lbltitle.Tag = filePath;
 
-           
+
             card.Click += Card_Click;
             poster.Click += Card_Click;
             lbltitle.Click += Card_Click;
@@ -164,6 +190,14 @@ namespace MovieSorterApp
             //flowLayoutPanel1.Controls.Clear(); // Clear before scan so no repeat other option? mas madali hahahah 
             //flowLayoutPanel2.Controls.Clear();
 
+            string cacheFolder = Path.Combine(Application.StartupPath, "Cache");
+            string posterFolder = Path.Combine(cacheFolder, "Posters");
+            string metadataFolder = Path.Combine(cacheFolder, "Metadata");
+
+            Directory.CreateDirectory(cacheFolder);
+            Directory.CreateDirectory(posterFolder);
+            Directory.CreateDirectory(metadataFolder);
+
             FolderBrowserDialog dialog = new FolderBrowserDialog();
 
             if (dialog.ShowDialog() == DialogResult.OK)
@@ -196,7 +230,7 @@ namespace MovieSorterApp
 
 
 
-                     
+
 
                         string json = await SearchMovie(title);
 
@@ -204,7 +238,10 @@ namespace MovieSorterApp
 
                         JsonElement results = doc.RootElement.GetProperty("results");
 
+
+
                         string posterUrl = "";
+                        string posterFile = Path.Combine(posterFolder, title + ".jpg");
 
                         if (results.GetArrayLength() > 0)
                         {
@@ -212,37 +249,76 @@ namespace MovieSorterApp
 
                             string posterPath = movie.GetProperty("poster_path").GetString();
 
-                             posterUrl = "https://image.tmdb.org/t/p/w500" + posterPath;
+                            posterUrl = "https://image.tmdb.org/t/p/w500" + posterPath;
 
-                           
+                            if (!File.Exists(posterFile))
+                            {
+                                using HttpClient client = new HttpClient();
+
+                                byte[] imageBytes = await client.GetByteArrayAsync(posterUrl);
+
+                                await File.WriteAllBytesAsync(posterFile, imageBytes);
+                            }
+
+
+                            string overview = movie.GetProperty("overview").GetString();
+                            string releaseDate = movie.GetProperty("release_date").GetString();
+                            double rating = movie.GetProperty("vote_average").GetDouble();
+
+                            MovieData movieData = new MovieData
+                            {
+                                Title = title,
+                                Poster = posterFile,
+                                Overview = overview,
+                                ReleaseDate = releaseDate,
+                                Rating = rating
+                            };
+
+
+
+                            string metadataJson = JsonSerializer.Serialize(movieData, new JsonSerializerOptions
+                            {
+                                WriteIndented = true
+                            });
+
+                            string metadataFile = Path.Combine(metadataFolder, title + ".json");
+
+                            await File.WriteAllTextAsync(metadataFile, metadataJson);
+
+
+                            await File.WriteAllTextAsync(
+                                Path.Combine(metadataFolder, title + ".json"),
+                                metadataJson);
+
+
+
                         }
+
                         else
                         {
                             MessageBox.Show("Movie not found.");
                         }
 
 
-
                         if (!scannedMovies.Contains(file)) // scan for duplicate 
                         {
                             scannedMovies.Add(file);
 
-                            CreateMovieCard(title, file, posterUrl, flowLayoutPanel1);
-                            CreateMovieCard(title, file, posterUrl, flowLayoutPanel2);
+                            CreateMovieCard(title, file, posterFile, flowLayoutPanel1);
+                            CreateMovieCard(title, file, posterFile, flowLayoutPanel2);
                         }
 
 
 
-                        
                     }
 
 
-                    
+
                 }
             }
         }
 
-      
+
 
 
 
@@ -258,10 +334,62 @@ namespace MovieSorterApp
 
         private void flowLayoutPanel1_Paint(object sender, PaintEventArgs e)
         {
-           
+
         }
 
-      
+        private void btn_Moveleft_Click(object sender, EventArgs e)
+        {
+            int newValue = flowLayoutPanel1.HorizontalScroll.Value - 180;
+
+            if (newValue < 0)
+                newValue = 0;
+
+            flowLayoutPanel1.HorizontalScroll.Value = newValue;
+        }
+
+        private void btn_Moveright_Click(object sender, EventArgs e)
+        {
+            int newValue = flowLayoutPanel1.HorizontalScroll.Value + 180;
+
+            int max =
+                flowLayoutPanel1.HorizontalScroll.Maximum;
+
+            if (newValue > max)
+                newValue = max;
+
+            flowLayoutPanel1.HorizontalScroll.Value = newValue;
+        }
+
+        private void flowLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+        private bool isFullscreen = false;
+
+        private void btn_Fullscreen_Click(object sender, EventArgs e)
+        {
+            if (!isFullscreen)
+            {
+                WindowState = FormWindowState.Maximized;
+                isFullscreen = true;
+
+                btn_Fullscreen.Text = "❐"; // Restore icon
+            }
+            else
+            {
+                WindowState = FormWindowState.Normal;
+                isFullscreen = false;
+
+                btn_Fullscreen.Text = "□"; // Maximize icon
+            }
+        }
+
+        private void btn_Minimize_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+
 
 
 
