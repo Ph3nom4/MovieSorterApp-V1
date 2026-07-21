@@ -1,0 +1,16 @@
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\obj\Debug\net10.0-windows\MovieSorterApp.Form1.resources
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\obj\Debug\net10.0-windows\MovieSorterApp1.csproj.GenerateResource.cache
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\obj\Debug\net10.0-windows\MovieSorterApp1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\obj\Debug\net10.0-windows\MovieSorterApp1.AssemblyInfoInputs.cache
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\obj\Debug\net10.0-windows\MovieSorterApp1.AssemblyInfo.cs
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\obj\Debug\net10.0-windows\MovieSorterApp1.csproj.CoreCompileInputs.cache
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\bin\Debug\net10.0-windows\MovieSorterApp1.exe
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\bin\Debug\net10.0-windows\MovieSorterApp1.deps.json
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\bin\Debug\net10.0-windows\MovieSorterApp1.runtimeconfig.json
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\bin\Debug\net10.0-windows\MovieSorterApp1.dll
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\bin\Debug\net10.0-windows\MovieSorterApp1.pdb
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\obj\Debug\net10.0-windows\MovieSorterApp1.dll
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\obj\Debug\net10.0-windows\refint\MovieSorterApp1.dll
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\obj\Debug\net10.0-windows\MovieSorterApp1.pdb
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\obj\Debug\net10.0-windows\MovieSorterApp1.genruntimeconfig.cache
+C:\Users\Ph3nom\source\repos\MovieSorterApp\MovieSorterApp\obj\Debug\net10.0-windows\ref\MovieSorterApp1.dll
