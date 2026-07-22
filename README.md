@@ -30,7 +30,14 @@ v1.3
 
 note: recommended donwload vlc first
 
+v1.4
+- addded movie description and information menu
+
+- fixed slow popup
+
 
 <img width="1163" height="1029" alt="image" src="https://github.com/user-attachments/assets/31d7449f-0c91-494c-86e1-fcf1f66df178" />
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/61bf8177-3889-40bb-9687-b88b8f0e822f" />
+
+<img width="1920" height="1080" alt="3" src="https://github.com/user-attachments/assets/01d3b9de-0633-4352-bc1e-a675addaa867" />
