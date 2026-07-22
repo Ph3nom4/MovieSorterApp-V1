@@ -77,7 +77,7 @@
             btn_Minimize.FlatAppearance.BorderSize = 0;
             btn_Minimize.FlatStyle = FlatStyle.Flat;
             btn_Minimize.ForeColor = SystemColors.Control;
-            btn_Minimize.Location = new Point(1039, 1);
+            btn_Minimize.Location = new Point(1036, 1);
             btn_Minimize.Name = "btn_Minimize";
             btn_Minimize.Size = new Size(37, 23);
             btn_Minimize.TabIndex = 5;
@@ -92,7 +92,7 @@
             btn_Fullscreen.FlatAppearance.BorderSize = 0;
             btn_Fullscreen.FlatStyle = FlatStyle.Flat;
             btn_Fullscreen.ForeColor = SystemColors.Control;
-            btn_Fullscreen.Location = new Point(1080, 2);
+            btn_Fullscreen.Location = new Point(1072, 2);
             btn_Fullscreen.Name = "btn_Fullscreen";
             btn_Fullscreen.Size = new Size(32, 23);
             btn_Fullscreen.TabIndex = 4;
@@ -107,11 +107,11 @@
             button3.FlatAppearance.BorderSize = 0;
             button3.FlatStyle = FlatStyle.Flat;
             button3.ForeColor = Color.White;
-            button3.Location = new Point(1096, 2);
+            button3.Location = new Point(1098, 2);
             button3.Name = "button3";
-            button3.Size = new Size(67, 23);
+            button3.Size = new Size(43, 23);
             button3.TabIndex = 3;
-            button3.Text = "X";
+            button3.Text = "x";
             button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 

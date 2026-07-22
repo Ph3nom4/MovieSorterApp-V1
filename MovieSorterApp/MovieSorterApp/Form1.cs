@@ -1,7 +1,9 @@
-using System.Net.Http; //Api
-using System.Text.Json; // Api
 using System.Diagnostics;
+using System.Net.Http; //Api
 using System.Reflection;
+using System.Text.Json; // Api
+using MovieSorterApp1;
+using static MovieSorterApp.Form1;
 
 
 namespace MovieSorterApp
@@ -10,6 +12,7 @@ namespace MovieSorterApp
     {
         public Form1()
         {
+            
             InitializeComponent();
 
         }
@@ -34,17 +37,34 @@ namespace MovieSorterApp
             return json;
         }
 
+
+        private async Task<string> GetMovieDetails(int movieId) /// 2nd api request 
+        {
+            using HttpClient client = new HttpClient();
+
+            string url =
+                 $"https://api.themoviedb.org/3/movie/{movieId}?api_key={ApiKey}";
+
+            return await client.GetStringAsync(url);
+        }
+
         public class MovieData // metadata
         {
             public string Title { get; set; }
 
             public string Poster { get; set; }
 
+            public string Backdrop { get; set; }
+
             public string Overview { get; set; }
 
             public string ReleaseDate { get; set; }
 
             public double Rating { get; set; }
+
+            public string Genre { get; set; }
+
+            public string Runtime { get; set; }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -104,12 +124,11 @@ namespace MovieSorterApp
 
             card.Controls.Add(poster);
             card.Controls.Add(lbltitle);
-
-
-
             panel.Controls.Add(card);
 
-            card.Tag = filePath;
+
+
+            card.Tag = filePath;    ///tagg
             poster.Tag = filePath;
             lbltitle.Tag = filePath;
 
@@ -179,24 +198,41 @@ namespace MovieSorterApp
             Control clickedControl = (Control)sender;
 
             string filePath = clickedControl.Tag.ToString();
-            MessageBox.Show(filePath);
 
-            Process.Start(@"C:\Program Files\VideoLAN\VLC\vlc.exe",
-              "\"" + filePath + "\"");
+            string cacheFolder = Path.Combine(Application.StartupPath, "Cache");
+            string metadataFolder = Path.Combine(cacheFolder, "Metadata");
+
+            string title = Path.GetFileNameWithoutExtension(filePath);
+            title = CleanTitle(title);
+
+            string metadataFile = Path.Combine(metadataFolder, title + ".json");
+
+            //MessageBox.Show(filePath);
+            //MessageBox.Show(metadataFile);
+
+
+            Popup details = new Popup(filePath, metadataFile);
+            details.ShowDialog();
+
+
         }
 
         private async void btnScan_Click(object sender, EventArgs e)
         {
             //flowLayoutPanel1.Controls.Clear(); // Clear before scan so no repeat other option? mas madali hahahah 
             //flowLayoutPanel2.Controls.Clear();
+            //flowLayoutPanel2.Controls.Clear();
 
             string cacheFolder = Path.Combine(Application.StartupPath, "Cache");
             string posterFolder = Path.Combine(cacheFolder, "Posters");
             string metadataFolder = Path.Combine(cacheFolder, "Metadata");
+            string backdropFolder = Path.Combine(cacheFolder, "Backdrop");
+
 
             Directory.CreateDirectory(cacheFolder);
             Directory.CreateDirectory(posterFolder);
             Directory.CreateDirectory(metadataFolder);
+            Directory.CreateDirectory(backdropFolder);
 
             FolderBrowserDialog dialog = new FolderBrowserDialog();
 
@@ -239,19 +275,52 @@ namespace MovieSorterApp
                         JsonElement results = doc.RootElement.GetProperty("results");
 
 
-
+                        
                         string posterUrl = "";
                         string posterFile = Path.Combine(posterFolder, title + ".jpg");
+                        string backdropURL = "";
+                        string backdropFile = Path.Combine(backdropFolder, title + ".jpg");
+
+
+
 
                         if (results.GetArrayLength() > 0)
                         {
                             JsonElement movie = results[0];
 
+
+
+                            int movieId = movie.GetProperty("id").GetInt32(); // Runtime finder
+
+                            string detailsJson = await GetMovieDetails(movieId);
+
+                            using JsonDocument detailsDoc = JsonDocument.Parse(detailsJson);
+
+                            JsonElement details = detailsDoc.RootElement;
+
+
+                            JsonElement genres = details.GetProperty("genres"); // genre finder
+
+                            List<string> genreList = new();
+
+                            foreach (JsonElement g in genres.EnumerateArray())
+                            {
+                                genreList.Add(g.GetProperty("name").GetString());
+                            }
+
+                            string genreText = string.Join(" • ", genreList); // convert to text
+
+
+
+
+
                             string posterPath = movie.GetProperty("poster_path").GetString();
+                            string backropPath = movie.GetProperty("backdrop_path").GetString();
 
                             posterUrl = "https://image.tmdb.org/t/p/w500" + posterPath;
+                            backdropURL = "https://image.tmdb.org/t/p/w1280" + backropPath;  // links
 
-                            if (!File.Exists(posterFile))
+                            if (!File.Exists(posterFile))  // catch if nothing is find avoids errors
                             {
                                 using HttpClient client = new HttpClient();
 
@@ -260,18 +329,35 @@ namespace MovieSorterApp
                                 await File.WriteAllBytesAsync(posterFile, imageBytes);
                             }
 
+                            if (!File.Exists(backdropFile))
+                            {
+                                using HttpClient client = new HttpClient();
+
+                                byte[] imageBytes = await client.GetByteArrayAsync(backdropURL);
+
+                                await File.WriteAllBytesAsync(backdropFile, imageBytes);
+                            }
+
 
                             string overview = movie.GetProperty("overview").GetString();
                             string releaseDate = movie.GetProperty("release_date").GetString();
                             double rating = movie.GetProperty("vote_average").GetDouble();
 
+                            int runtime = details.GetProperty("runtime").GetInt32();
+
+                            string runtimeText = $"{runtime / 60}h {runtime % 60}m"; // convert to text or string 
+
+
                             MovieData movieData = new MovieData
                             {
                                 Title = title,
                                 Poster = posterFile,
+                                Backdrop = backdropFile,
                                 Overview = overview,
                                 ReleaseDate = releaseDate,
-                                Rating = rating
+                                Rating = rating,
+                                Genre = genreText,
+                                Runtime = runtimeText
                             };
 
 
