@@ -1,7 +1,7 @@
 # MovieSorterApp (SCANFLIX)
 MovieSorterApp Scans for Local Movies on your Drive and provides posters,metadata as media library
 
-v1 
+v1.0
 -MovieSorterApp API based Movie Sorter for your local downloaded Movies 
 
 
@@ -9,7 +9,7 @@ v1
 - finds poster for movies
 - plays directly on vlc 
 
-v2
+v1.3
 -MovieSorterApp API based Movie Sorter for your local downloaded Movies 
 
 -scans local disks for movies 
