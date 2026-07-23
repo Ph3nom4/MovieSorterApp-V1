@@ -31,13 +31,24 @@ v1.3
 note: recommended donwload vlc first
 
 v1.4
-- addded movie description and information menu
+- addded movie description and information menu popup display 
 
 - fixed slow popup
 
+v1.6 beta
 
-<img width="1163" height="1029" alt="image" src="https://github.com/user-attachments/assets/31d7449f-0c91-494c-86e1-fcf1f66df178" />
+-added search bar function 
 
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/61bf8177-3889-40bb-9687-b88b8f0e822f" />
+- movable window
 
-<img width="1920" height="1080" alt="3" src="https://github.com/user-attachments/assets/01d3b9de-0633-4352-bc1e-a675addaa867" />
+- faster bootup after cache downloading
+
+- seperate window for all movies
+
+
+
+<img width="1163" height="1029" alt="v 16 1" src="https://github.com/user-attachments/assets/ec5c8233-4447-48f5-bb7f-fa504db1d1de" />
+
+<img width="1920" height="1080" alt="v16 2" src="https://github.com/user-attachments/assets/3262c13d-e507-4908-982c-2d6a57d10902" />
+
+<img width="1163" height="1029" alt="v16 3" src="https://github.com/user-attachments/assets/81dcf123-5eb3-46f5-ac05-f35c78031b0c" />
