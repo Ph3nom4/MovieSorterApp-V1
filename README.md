@@ -1,6 +1,10 @@
 # MovieSorterApp (SCANFLIX)
 MovieSorterApp Scans for Local Movies on your Drive and provides posters,metadata as media library
 
+Scan your Files And Watch it like Netflix :)
+
+
+
 v1.0
 -MovieSorterApp API based Movie Sorter for your local downloaded Movies 
 
@@ -46,9 +50,21 @@ v1.6 beta
 - seperate window for all movies
 
 
+v.189
 
-<img width="1163" height="1029" alt="v 16 1" src="https://github.com/user-attachments/assets/ec5c8233-4447-48f5-bb7f-fa504db1d1de" />
+- better improved UI
 
-<img width="1920" height="1080" alt="v16 2" src="https://github.com/user-attachments/assets/3262c13d-e507-4908-982c-2d6a57d10902" />
+- faster loadups no more new Tabs
 
-<img width="1163" height="1029" alt="v16 3" src="https://github.com/user-attachments/assets/81dcf123-5eb3-46f5-ac05-f35c78031b0c" />
+- fix bugs and slowups
+
+- new home page
+
+- fix error on reading files and duplicates 
+
+
+<img width="1920" height="1080" alt="v 189" src="https://github.com/user-attachments/assets/76ad6359-c2c9-4aa9-a948-f73174b949f3" />
+<img width="1129" height="1012" alt="v 189 2" src="https://github.com/user-attachments/assets/1fa320b0-bcce-4c36-a0f2-990f64498fd8" />
+<img width="1129" height="1012" alt="v 189 3" src="https://github.com/user-attachments/assets/a0d4ace7-786b-4991-8603-fc83e14cd4ba" />
+
+
