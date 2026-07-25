@@ -75,9 +75,9 @@ Note: recommended donwload vlc first
 
 <img width="1920" height="1080" alt="final12" src="https://github.com/user-attachments/assets/0c528a44-a5ae-4dab-b1a4-1728342f687d" />
 
-![Uploading final2.png…]()
+<img width="1129" height="1012" alt="final2" src="https://github.com/user-attachments/assets/dfd853b5-2eda-466c-8214-a085d59a7200" />
 
-<img width="1129" height="1012" alt="final3" src="https://github.com/user-attachments/assets/3e3e1639-f908-48fe-9d82-1bd41596358f" />
+<img width="1129" height="1012" alt="v 189 3" src="https://github.com/user-attachments/assets/64357a46-7ec3-4f17-9676-2891119efa4c" />
 
 <img width="1200" height="700" alt="final4" src="https://github.com/user-attachments/assets/e085e34c-4a68-4119-b4d2-52259fb5b07e" />
 
