@@ -63,7 +63,7 @@ v.189
 - fix error on reading files and duplicates
 
 
-v.1 Final ( Download This One :) )
+v.2 Final ( Download This One :) )
 - Ui improvements
 - Vlc Open Fullscreen
 - Movie Counter Added
